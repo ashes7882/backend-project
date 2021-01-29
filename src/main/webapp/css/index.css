@@ -1,0 +1,60 @@
+@charset "ISO-8859-1";
+title{
+	color: white;
+}
+body {
+	background-color: #bbdfc8;
+	text-align: center;
+	background: url("plane1.jpg") no-repeat center fixed;
+	background-size: cover;
+	margin: 0;
+	
+	position: relative;
+}
+.input{
+	width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid ;
+  box-sizing: border-box;
+	border-radius: 4px;
+	color: black;
+}
+.heading {
+	color: white;
+	position: relative;
+	background-image: linear-gradient(to right, rgba(211, 224, 234,0), rgba(187, 241, 250,.4));
+	margin: 0;
+	top: 0;
+}
+
+.table {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+input {
+
+}
+
+.button {
+	background-color: #4CAF50;
+	border: none;
+	color: white;
+	padding: 8px 16px;
+	text-decoration: none;
+	margin-left: 10px;
+	cursor: pointer;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.button:hover {
+	background-color: #f4f5db;
+	color: black
+}
+
+input:focus {
+	background-color: #f4f5db;
+}
