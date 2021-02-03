@@ -1,6 +1,5 @@
 package com.simplilearn.project.util;
 
-import java.io.Console;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -8,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Properties;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -23,6 +21,7 @@ public class MyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 //	private static final String INSERT_QUERY = "INSERT INTO cities(Source, Destination) VALUES ('Hyderabad', 'Hyderabad')";
 	private static final String SELECT_CITIES = "SELECT * FROM cities";
+	private static final String SELECT_TotalAirlines = "SELECT * FROM airlines";
 	private static final String SELECT_AIRLINES = "SELECT Airline from flights"; 
 	private static final String SELECT_FLIGHT_SOURCE = "SELECT Source from flights"; 
 	private static final String SELECT_FLIGHT_DESTINATION = "SELECT Destination from flights"; 
@@ -32,15 +31,27 @@ public class MyServlet extends HttpServlet {
 	ArrayList<String> flightSourceList = new ArrayList<String>();
 	ArrayList<String> flightDestinationList = new ArrayList<String>();
 	ArrayList<String> priceList = new ArrayList<String>();
+	ArrayList<String> totalAirlinesList = new ArrayList<String>();
 	String userSource;
 	String userDestination;
 	String date;
+	
 	User u = new User();
+	FlightData fd = new FlightData();
 	
 	public void dataConnection(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		
+
+		
 		HttpSession session = request.getSession();
 		try {
+			cityList.clear();
+			airlineList.clear(); 
+			flightSourceList.clear(); 
+			flightDestinationList.clear();
+			priceList.clear();
+			totalAirlinesList.clear();
+			String test="";
 			PrintWriter out = response.getWriter();
 			Integer count1=0;
 			Integer count2=0;
@@ -51,7 +62,7 @@ public class MyServlet extends HttpServlet {
 			u.setUserDestination(request.getParameter("destination"));
 			u.setDate(request.getParameter("date"));
 			session.setAttribute("user", u);
-			
+			session.setAttribute("fd", fd);
 			Properties properties = new Properties();
 			properties.load(inputStream);
 			// obtain a connection object
@@ -75,6 +86,9 @@ public class MyServlet extends HttpServlet {
 			Statement statement5 = connection.getConnection().createStatement(
 					ResultSet.TYPE_SCROLL_INSENSITIVE,
 					ResultSet.CONCUR_READ_ONLY);
+			Statement statement6 = connection.getConnection().createStatement(
+					ResultSet.TYPE_SCROLL_INSENSITIVE,
+					ResultSet.CONCUR_READ_ONLY);
 			
 //			statement.executeUpdate(INSERT_QUERY);
 			
@@ -83,70 +97,90 @@ public class MyServlet extends HttpServlet {
 			ResultSet flightSourceSet = statement3.executeQuery(SELECT_FLIGHT_SOURCE);
 			ResultSet flightDestinationSet = statement4.executeQuery(SELECT_FLIGHT_DESTINATION);
 			ResultSet priceSet = statement5.executeQuery(SELECT_PRICES);
-
+			ResultSet totalAirlinesSet = statement6.executeQuery(SELECT_TotalAirlines);
+			
+			
 			
 			while (cityResultSet.next()){
 				//out.println(resultSet.getInt("ID") + " ," + resultSet.getString("city") + "<br/>");
 			cityList.add(cityResultSet.getString("city"));
-			}
+			} fd.setCityList(cityList);
 			while (airlineResultSet.next()){
 				//out.println(resultSet.getInt("ID") + " ," + resultSet.getString("city") + "<br/>");
 				airlineList.add(airlineResultSet.getString("Airline"));
-			}
+			} fd.setAirlineList(airlineList);
+
 			while (flightSourceSet.next()){
 				//out.println(resultSet.getInt("ID") + " ," + resultSet.getString("city") + "<br/>");
 				flightSourceList.add(flightSourceSet.getString("Source"));
-			}
+			} fd.setFlightSourceList(flightSourceList);
 			while (flightDestinationSet.next()){
 				//out.println(resultSet.getInt("ID") + " ," + resultSet.getString("city") + "<br/>");
 				flightDestinationList.add(flightDestinationSet.getString("Destination"));
-			}
+			} fd.setFlightDestinationList(flightDestinationList);
 			while (priceSet.next()){
 				//out.println(resultSet.getInt("ID") + " ," + resultSet.getString("city") + "<br/>");
 				priceList.add(priceSet.getString("Price"));
+			} fd.setPriceList(priceList);
+			
+			while (totalAirlinesSet.next()){
+				//out.println(resultSet.getInt("ID") + " ," + resultSet.getString("city") + "<br/>");
+				totalAirlinesList.add(totalAirlinesSet.getString("name"));
+			} fd.setTotalAirlines(totalAirlinesList);
+			
+			statement1.close();
+			statement2.close();
+			statement3.close();
+			statement4.close();
+			statement5.close();
+			statement6.close();
+			
+			cityResultSet.close();
+			airlineResultSet.close();
+			flightSourceSet.close();
+			flightDestinationSet.close();
+			priceSet.close();
+			totalAirlinesSet.close();
+			
+			if(request.getParameter("admin")!= null) {
+				test = request.getParameter("admin");
 			}
 			
-			for(String n: cityList) {
-				if (n.equalsIgnoreCase(u.getUserSource()) ) {
-					
-				}else {
-					count1++;
-				}
-			}
-			for(String n: cityList) {
-				if (n.equalsIgnoreCase(u.getUserDestination()) ) {
-					
-				}else {
-					count2++;
-				}
-			}
-			
-			 if(u.getUserDestination().equalsIgnoreCase(u.getUserSource())) {
-				RequestDispatcher rd = request.getRequestDispatcher("index.html");
-				rd.include(request, response);
-				out.print("<html><body><p style=\"color:white;text-align:center;\">Please enter different cities in Source and Destination</p></body></html>");
-	
-			}else if(count1.equals(cityList.size()) || count2.equals(cityList.size())) {
-				RequestDispatcher rd = request.getRequestDispatcher("index.html");
-				rd.include(request, response);
-				out.print("<html><body><p style=\"color:white;text-align:center;\">Please enter a valid city in Source/Destination</p></body></html>");
-				
+			if(test.equals("admin")) {
+				request.removeAttribute("admin");
+				RequestDispatcher rd = request.getRequestDispatcher("login.html");
+				rd.forward(request, response);
 			}else {
-				doGet(request, response);
+				for(String n: cityList) {
+					if (n.equalsIgnoreCase(u.getUserSource()) ) {
+						
+					}else {
+						count1++;
+					}
+				}
+				for(String n: cityList) {
+					if (n.equalsIgnoreCase(u.getUserDestination()) ) {
+						
+					}else {
+						count2++;
+					}
+				}
+				
+				 if(u.getUserDestination().equalsIgnoreCase(u.getUserSource())) {
+					RequestDispatcher rd = request.getRequestDispatcher("index.html");
+					rd.include(request, response);
+					out.print("<html><body><p style=\"color:white;text-align:center;\">Please enter different cities in Source and Destination</p></body></html>");
+		
+				}else if(count1.equals(cityList.size()) || count2.equals(cityList.size())) {
+					RequestDispatcher rd = request.getRequestDispatcher("index.html");
+					rd.include(request, response);
+					out.print("<html><body><p style=\"color:white;text-align:center;\">Please enter a valid city in Source/Destination</p></body></html>");
+					
+				}else {
+					doGet(request, response);
+				}
 			}
-//			if (userDestination.equalsIgnoreCase(userSource)) {
-//				RequestDispatcher rd = request.getRequestDispatcher("index.html");
-//				rd.include(request, response);
-//				out.print("<html><body><p style=\"color:white;text-align:center;\">Please enter a different city in Source/Destination</p></body></html>");
-//	
-//			}else if(count1.equals(cityList.size())) {
-//				RequestDispatcher rd = request.getRequestDispatcher("index.html");
-//				rd.include(request, response);
-//				out.print("<html><body><p style=\"color:white;text-align:center;\">Please enter a valid city in Source/Destination</p></body></html>");
-//				
-//			}else {
-//				doGet(request, response);
-//			}
+			
 			}catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			} catch (SQLException e) {

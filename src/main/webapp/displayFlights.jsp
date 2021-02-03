@@ -12,7 +12,7 @@
 <link href="css/index.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<h1>Available flights are displayed below based on your filters</h1>
+<h1 style="color: #5b5b5b;">Available flights are displayed below based on your filters</h1>
 <hr/>
 	<% ArrayList<String> finalFlightList = (ArrayList<String>) request.getAttribute("finalFlightList");
 	ArrayList<String> finalPriceList = (ArrayList<String>) request.getAttribute("finalPriceList");
@@ -28,7 +28,7 @@
    		<tr>
       		<td><c:out value="${finalFlightList[index]}"/></td>
       		<td><c:out value="${finalPriceList[index]}"/></td>
-      		<td><form action="login.jsp">
+      		<td><form action="register.jsp">
       				<input class="button" type="submit" value="Select"/>
       				<input type="hidden" name="flightSelected" value="${finalFlightList[index]}">
       				<input type="hidden" name="price" value="${finalPriceList[index]}">

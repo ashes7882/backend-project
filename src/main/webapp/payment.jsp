@@ -22,9 +22,9 @@
 <br><br><br>
 <form action="success.jsp">
 	<input class="input" type="text" placeholder="Enter cardholder name" required>
-	<input class="input" type="number" placeholder="Enter card number" required>
+	<input class="input" type="number" placeholder="Enter card number" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="16" required>
 	<input class="input" type="month" placeholder="Enter card expiry date" required>
-	<input class="input" type="number" placeholder="Enter cvv" maxlength="3" required><br>
+	<input class="input" type="number" placeholder="Enter cvv" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="3" required><br>
 	<input class="button" type="submit" value="Pay">
 </form>
 </body>

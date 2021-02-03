@@ -16,7 +16,7 @@
 	u.setFlightSelected(request.getParameter("flightSelected"));
 	u.setPrice(request.getParameter("price"));%>
 	<h1>Kindly enter your details below to register</h1>
-	<br><br><br><br>
+	<br><br>
 <form action="payment.jsp">
 	<input class="input" type="text" placeholder="Enter your first name" name="fname" required>
 	<input class="input" type="text" placeholder="Enter your last name" name="lname" required>

@@ -1,6 +1,6 @@
 package dto;
 
-public class User implements java.io.Serializable {
+public class User {
 	
 	private String userSource;
 	private String userDestination;

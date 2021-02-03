@@ -24,4 +24,34 @@
     <servlet-name>payServlet</servlet-name>
     <url-pattern>/payServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>TestPassword</display-name>
+    <servlet-name>TestPassword</servlet-name>
+    <servlet-class>com.simplilearn.project.util.TestPassword</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TestPassword</servlet-name>
+    <url-pattern>/TestPassword</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>logout</display-name>
+    <servlet-name>logout</servlet-name>
+    <servlet-class>com.simplilearn.project.util.logout</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>logout</servlet-name>
+    <url-pattern>/logout</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>changePassword</display-name>
+    <servlet-name>changePassword</servlet-name>
+    <servlet-class>com.simplilearn.project.util.changePassword</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>changePassword</servlet-name>
+    <url-pattern>/changePassword</url-pattern>
+  </servlet-mapping>
 </web-app>

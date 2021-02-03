@@ -6,14 +6,24 @@
 <link href="css/index.css" rel="stylesheet" type="text/css">
 </head>
 <body >
-<div class="heading"><h1>Welcome to FlyAway</h1>
-<p>Please enter your travel details below</p></div>
+<div class="heading">
+	<div>
+		<h1>Welcome to FlyAway</h1>
+		<p>Please enter your travel details below</p>
+	</div>
+	<div>
+		<form action="MyServlet">
+			<button id="adminButton" class="button">Admin Login</button>
+			<input type="hidden" name="admin" value="admin">
+		</form>
+	</div>
+</div>
 
-<form action="MyServlet" method="get">
-<input class="input" type="text" placeholder="Enter the source here" name="source" required>
-<input class="input" type="text" size="24" placeholder="Enter the destination here" name="destination" required>
-<input class="input" type="text" size="40" placeholder="Enter the date of travel here(dd-mm-yyyy)" name="date" required><br>
-<input class="button" type="submit" value="Submit">
+<form action="MyServlet" method="post">
+	<input class="input" type="text" placeholder="Enter the source here" name="source" required>
+	<input class="input" type="text" size="24" placeholder="Enter the destination here" name="destination" required>
+	<input class="input" type="date" size="40" placeholder="Enter the date of travel here(dd-mm-yyyy)" name="date" min="2021-02-05" required><br>
+	<input class="button" type="submit" value="Submit">
 </form>
 </body>
 </html>

@@ -20,5 +20,8 @@ u = (User) abc.getAttribute("user");
 <h3><%= "Flight Name: "+ u.getFlightSelected() %></h3>
 <h3>Flight Date: <%= u.getDate() %></h3>
 <h3>Flight Price: <%= u.getPrice() %></h3>
+<form action="index.html">
+<input class="button" type="submit" value="Goto Homepage">
+</form>
 </body>
 </html>

@@ -1,45 +1,62 @@
 @charset "ISO-8859-1";
-title{
-	color: white;
+
+title {
+	color: #5b5b5b;
+}
+
+#adminButton {
+	left: 300px;
+	top: 10px;
+}
+
+#logoutButton{
+	position: relative;
+	top: 20px;
+	left: 500px;
 }
 body {
-	background-color: #bbdfc8;
 	text-align: center;
-	background: url("plane1.jpg") no-repeat center fixed;
+	background: url("bg.jpg") no-repeat center fixed;
 	background-size: cover;
 	margin: 0;
-	
 	position: relative;
+	color: #5b5b5b;
 }
-.input{
+
+.input {
 	width: 50%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid ;
-  box-sizing: border-box;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid;
+	box-sizing: border-box;
 	border-radius: 4px;
-	color: black;
+	color: #5b5b5b;
 }
+
 .heading {
-	color: white;
+	color: #5b5b5b;
 	position: relative;
-	background-image: linear-gradient(to right, rgba(211, 224, 234,0), rgba(187, 241, 250,.4));
+	background-image: linear-gradient(to right, rgba(211, 224, 234, 0),
+		rgba(187, 241, 250, .4));
 	margin: 0;
 	top: 0;
+	display: flex;
+	justify-content: center;
 }
 
 .table {
+	color: #5b5b5b;
 	margin-left: auto;
 	margin-right: auto;
 }
 
 input {
-
+	
 }
 
 .button {
-	background-color: #4CAF50;
+	background-color: #9dad7f;
 	border: none;
 	color: white;
 	padding: 8px 16px;
@@ -48,6 +65,7 @@ input {
 	cursor: pointer;
 	margin-left: auto;
 	margin-right: auto;
+	position: relative;
 }
 
 .button:hover {
